@@ -39,7 +39,7 @@ public final class BMTrails extends JavaPlugin {
         public static final ConfigValue<String> DEFAULT_COLOR = new ConfigValue<>("defaultTrailColor", "random");
         public static final ConfigValue<Boolean> PERMISSION_COLORS = new ConfigValue<>("usePermissionOverrides", false);
         public static final ConfigValue<List<String>> PERMISSION_OVERRIDES = new ConfigValue<>("permissionOverrides", List.of());
-        public static final ConfigValue<Integer> POLLING_INTERVAL = new ConfigValue<>("pollingInterval", 20);
+        public static final ConfigValue<Integer> SAMPLING_INTERVAL = new ConfigValue<>("samplingInterval", 20);
         public static final ConfigValue<Integer> MAX_TRAIL_POINTS = new ConfigValue<>("trailPointsMax", 100);
         public static final ConfigValue<Integer> TELEPORT_DETECTION_THRESHOLD = new ConfigValue<>("teleportDistance", 200);
         public static final ConfigValue<String> DISPLAY_NAME = new ConfigValue<>("displayName", "%player%");
@@ -76,7 +76,7 @@ public final class BMTrails extends JavaPlugin {
 
     private BlueMapAPI blueMapAPI;
 
-    private BukkitTask pollingTask;
+    private BukkitTask samplingTask;
 
     private boolean permissionFilter;
 
@@ -97,7 +97,7 @@ public final class BMTrails extends JavaPlugin {
     @Override
     public void onEnable() {
         bmTrails = this;
-        BlueMapAPI.onDisable((api) -> pollingTask.cancel());
+        BlueMapAPI.onDisable((api) -> samplingTask.cancel());
         BlueMapAPI.onEnable((api) -> {
             blueMapAPI = api;
             getLogger().log(Level.INFO, "Enabling BMTrails");
@@ -108,7 +108,7 @@ public final class BMTrails extends JavaPlugin {
             playerWorlds = new ConcurrentHashMap<>();
             lastUpdate = 0;
             lastCacheRefresh = 0;
-            pollingTask = Bukkit.getScheduler().runTaskTimer(this, this::pollingTask, 0, ConfigValue.POLLING_INTERVAL.getValue());
+            samplingTask = Bukkit.getScheduler().runTaskTimer(this, this::samplingTask, 0, ConfigValue.SAMPLING_INTERVAL.getValue());
         });
     }
 
@@ -170,7 +170,7 @@ public final class BMTrails extends JavaPlugin {
         }
     }
 
-    private void pollingTask(){
+    private void samplingTask(){
         Map<UUID, Location> locations = Bukkit.getOnlinePlayers().stream()
                 .filter(player -> !permissionFilter || player.hasPermission(PERM_VISIBLE))
                 .filter(player -> blueMapAPI.getWebApp().getPlayerVisibility(player.getUniqueId()))

@@ -34,18 +34,18 @@ permissionOverrides:
 # Interval (in ticks) between taking two trail points
 # Shorter intervals result in smoother and more accurate trails, but require more trail points to actually display a significant length of the trail.
 # 20 ticks = 1 second
-pollingInterval: 20
+samplingInterval: 20
 
 # Maximum number of trail points to keep per player
 # Higher values result in longer trails
 trailPointsMax: 60
 
-# Multiply the pollingInterval by trailPointsMax to get the time (in ticks) between the first and the last trail point.
+# Multiply the samplingInterval by trailPointsMax to get the time (in ticks) between the first and the last trail point.
 # The default trail would amount to 20 ticks/point * 60 points = 1200 ticks = 1 minute
 # So with default settings, each trail represents the last minute of each player's movement
 
 # If a player moves more than the specified amount of blocks between two trail points, the trail is reset to prevent long lines spanning the entire map when a player teleports
-# Make sure to tweak this, so it isn't possible to travel this distance within a single pollingInterval.
+# Make sure to tweak this, so it isn't possible to travel this distance within a single samplingInterval.
 # Trails will always be reset if a player teleports to a different world/dimension
 teleportDistance: 200
 
