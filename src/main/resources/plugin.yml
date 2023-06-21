@@ -6,3 +6,8 @@ prefix: BMTrails
 depend: [BlueMap]
 authors: [Mark_225]
 description: A simple BlueMap addon that displays player trails on the map
+permissions:
+  bmtrails.visible:
+    default: false
+  bmtrails.customcolor:
+    default: false

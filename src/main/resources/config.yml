@@ -1,0 +1,64 @@
+# BMTrails Configuration file
+#
+# This config is reloaded automatically on every /bluemap reload
+
+markerSetName: 'Player Trails'
+markerSetVisibleDefault: true
+markerSetToggleable: true
+
+#Add map ids to the list if you don't want player trails to show up on them
+excludedMaps:
+  - ''
+
+# Default trail color for all players 'random' generates a random color based on the player's username (so the color always stays the same unless the player changes their name)
+# Can be changed to a hex color code (e.g. 'ff0000' for red)
+defaultTrailColor: 'random'
+
+# Set this to true if you want to configure player specific colors using permissions.
+# This additional toggle exists because permissions cannot be checked asynchronously and would affect performance even if you are not using them at all.
+usePermissionOverrides: false
+
+# A list of color names that can be assigned to a single player by giving them the permission "bmtrails.color.<color name>".
+# For performance reasons, each player using one of these permissions must also have the "bmtrails.customcolor" permission.
+# If you want to use this, don't give your default role the "bmtrails.customcolor" permission and instead configure their color using the "defaultTrailColor" setting above.
+# This ensures that the plugin does not need to check every single permission in the list below for every single online player.
+#
+# Configure as a list of strings in the format "name:rrggbb"
+# You might need to fully restart your server before you can use a newly added permission.
+permissionOverrides:
+  - 'red:ff0000'
+  - 'green:00ff00'
+  - 'blue:0000ff'
+  - 'white:ffffff'
+
+# Interval (in ticks) between taking two trail points
+# Shorter intervals result in smoother and more accurate trails, but require more trail points to actually display a significant length of the trail.
+# 20 ticks = 1 second
+pollingInterval: 20
+
+# Maximum number of trail points to keep per player
+# Higher values result in longer trails
+trailPointsMax: 60
+
+# Multiply the pollingInterval by trailPointsMax to get the time (in ticks) between the first and the last trail point.
+# The default trail would amount to 20 ticks/point * 60 points = 1200 ticks = 1 minute
+# So with default settings, each trail represents the last minute of each player's movement
+
+# If a player moves more than the specified amount of blocks between two trail points, the trail is reset to prevent long lines spanning the entire map when a player teleports
+# Make sure to tweak this, so it isn't possible to travel this distance within a single pollingInterval.
+# Trails will always be reset if a player teleports to a different world/dimension
+teleportDistance: 200
+
+# The text to display in the tooltip when clicking on a player's trail.
+# %player% will be replaced with the player's name
+displayName: '%player%'
+
+# Allow only certain player's trails to show up on Bluemap by changing this setting to true and giving them the permission 'bmtrails.visible'
+usePermissionsForTrailVisibility: false
+
+# Line width in pixels for the trail markers
+# Has to be a positive integer
+lineWidth: 2
+
+# Maximum distance (in blocks) between a trail marker and the camera (in the browser) for the trail marker to be displayed
+maxDistance: 1000
