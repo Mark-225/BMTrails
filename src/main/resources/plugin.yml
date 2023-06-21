@@ -1,0 +1,8 @@
+name: BMTrails
+version: '${version}'
+main: de.mark225.bmtrails.BMTrails
+api-version: '1.20'
+prefix: BMTrails
+depend: [BlueMap]
+authors: [Mark_225]
+description: A simple BlueMap addon that displays player trails on the map
