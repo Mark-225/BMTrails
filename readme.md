@@ -34,3 +34,5 @@ For more details on how to use each of these config settings, take a look at the
 As these trails are considered normal markers by BlueMap, they are limited to the 10-second fetch interval. That means trails can be up to 10 seconds behind, depending on how well the browser refresh lines up with the most recent trail update.
   
 Since the permission-based features need to adapt to player permission changes live, the plugin forces a recalculation of all player permissions every five seconds, if those features are enabled in the config. This may be a performance issue for large servers, but I am unable to properly test this.
+  
+I have no idea why but permission related config settings sometimes take a restart to apply, yet sometimes a bluemap reload is enough.
